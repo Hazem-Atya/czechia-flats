@@ -44,8 +44,14 @@ To run the project, follow these steps:
    ```bash
    docker compose up --build
 
+
   This will initialize the entire project, including the database, scraper, API, and frontend.
   
-4. If you already have data in your local database and wish to run only the frontend, use this command to avoid data duplication:
+5. If you already have data in your local database and wish to run only the frontend, use this command to avoid data duplication:
    ```bash
    docker compose up --build frontend
+
+ ### Note
+If the data does not appear, it may be due to the scraper not working successfully. You can try restarting it using:
+ ```bash
+   docker compose up scrapper
