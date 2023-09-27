@@ -1,0 +1,67 @@
+version: '3.8'
+services:
+  postgresdb:
+    container_name: "postgresdb"
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./init_postgres.sql:/docker-entrypoint-initdb.d/init.sql:Z
+
+
+  scrapper:
+    container_name: scrapper
+    build:
+      context: ./scrapper
+    depends_on:
+       - postgresdb
+    environment:
+      PG_USER: postgres 
+      PG_PASSWORD: "postgres"
+      PG_HOST: postgresdb
+      PG_PORT: "5432"
+      PG_DB: postgres
+
+
+
+  api:
+    container_name: api
+    build:
+      context: ./api
+
+    restart: unless-stopped
+    depends_on:
+       - postgresdb
+    environment:
+      PG_USER: postgres 
+      PG_PASSWORD: "postgres"
+      PG_URL: "postgresdb:5432"
+      PG_DB: postgres
+
+    ports:
+      - "8001:8000"
+
+
+      
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+    depends_on:
+       - api
+   
+    ports:
+      - "8080:3000"
+
+
+
+volumes:
+  db:
+    driver: local
+
+
