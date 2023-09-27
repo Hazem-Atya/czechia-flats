@@ -2,6 +2,9 @@
 
 This project provides a better design of the main page of the [Sreality](https://www.sreality.cz/en/search/for-sale/apartments) website (which is a  platform for searching apartments in the Czech Republic). The data used in is scrapped from from the Sreality website.
 
+![image](https://github.com/Hazem-Atya/czechia-flats/assets/53778545/0b28d230-5cd3-44c8-8b2c-a30966ab8f91)
+
+
 ## Project Overview
 
 ### Services
